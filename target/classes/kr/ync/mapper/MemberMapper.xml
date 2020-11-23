@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ync.mapper.MemberMapper">
+
+	<resultMap type="kr.ync.domain.MemberVO" id="memberMap">
+		<id property="userid" column="userid"/>
+		<result property="userid" column="userid"/>
+		<result property="userpw" column="userpw"/>
+		<result property="userName" column="username"/>
+		<result property="regDate" column="regdate"/>
+		<result property="updateDate" column="updatedate"/>
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+	
+	<resultMap type="kr.ync.domain.AuthVO" id="authMap">
+		<result property="userid" column="userid"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+
+	<!--
+	member_auth table은 사용 하지 않고 AuthVO만 사용한다.
+	tbl_member 의 autho 컬럼 정보만 따로 담아는 객차이다.
+	Spring Security의 기본 사용법과 다르게 tbl_member에 권한 컴럼(auth)을
+	넣어서 사용하기에 기본 사용법과 달라진다.
+	-->
+	<select id="read" resultMap="memberMap">
+	SELECT	userid,
+			userpw,
+			username,
+			enabled,
+			regdate,
+			updatedate,
+			auth
+	FROM	tbl_member
+	WHERE	userid = #{userid} 
+	</select>
+
+</mapper>
