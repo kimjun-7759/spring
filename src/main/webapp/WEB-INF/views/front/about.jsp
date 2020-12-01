@@ -16,7 +16,7 @@
                  <h2 class="title-wthree text-center mb-lg-5 mb-3">About</h2>
                 <div class="row">
                     <div class="col-lg-6 about-img" data-aos="flip-right">
-                        <img class="img-fluid" src="../../../resources/img/ab.jpg" alt="">
+                        <img class="img-fluid" src="../../../resources/img/123.jpg" alt="">
                     </div>
                     <div class="col-lg-6 about-right mt-lg-4" data-aos="flip-left">
                         <h4 class="sub-tittle">Who We Are</h4>
@@ -69,49 +69,6 @@
    <%@include file="footer.jsp"%>
     <!--//footer-->
 
-    <script src="../../../resources/front/js/jquery-2.2.3.min.js"></script>
-    <script src='../../../resources/front/js/aos.js'></script>
-    <script>
-        AOS.init({
-            easing: 'ease-out-back',
-            duration: 1000
-        });
-    </script>
-   <!--/ start-smoth-scrolling -->
-    <script src="../../../resources/front/js/move-top.js"></script>
-    <script src="../../../resources/front/js/easing.js"></script>
-    <script>
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            /*
-            						var defaults = {
-            							  containerID: 'toTop', // fading element id
-            							containerHoverID: 'toTopHover', // fading element hover id
-            							scrollSpeed: 1200,
-            							easingType: 'linear' 
-            						 };
-            						*/
-
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-
-        });
-    </script>
-    <!--// end-smoth-scrolling -->
-
-    <!-- //js -->
-
-    <script src="../../../resources/front/js/bootstrap.js"></script>
 
 </body>
 

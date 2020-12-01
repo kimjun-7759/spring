@@ -47,6 +47,14 @@ public class FreeBoardController {
 //		   return "redirect:/Freeboard";
 //	   }
 //	   
+	   
+	   @PreAuthorize("hasRole('ROLE_USER')")
+	   @GetMapping("/index")
+	   public void index() {
+	  	 
+	   }
+	   
+	   
 	   @GetMapping("/free_board")
 	   public void free_board(Criteria cri, Model model) {
 		   log.info("f_board: " + cri);
@@ -64,12 +72,12 @@ public class FreeBoardController {
 //	   }
 	   
 	   @GetMapping("/f_register")
-//	   @PreAuthorize("isAuthenticated()")
+	   @PreAuthorize("isAuthenticated()")
 	   public void register() {
 
 	   }
 	   
-//	   @PreAuthorize("isAuthenticated()")
+	   @PreAuthorize("isAuthenticated()")
 	   @PostMapping("/f_register")
 	   public String register(MultipartFile[] uploadFile, FreeBoardVO board, RedirectAttributes rttr) {
 	      
@@ -99,13 +107,44 @@ public class FreeBoardController {
 
 	      return "redirect:/front/free_board";
 	   }
-	   
-	   @GetMapping("/f_get")
+
+	   @GetMapping({"/f_get", "/f_modify"})
 	   public void f_get(@RequestParam("board_idx") Long board_idx, Model model, @ModelAttribute("cri") Criteria cri) {
 		   
-		   log.info("/f_get");
+		   log.info("/f_get or f_modify");
 		   model.addAttribute("freeboard", service.f_get(board_idx));
-	   }
+	   }	  
 	   
+	   @PreAuthorize("principal.username == #board.userid")
+	   @PostMapping("/f_modify")
+	   public String f_modify(MultipartFile[] uploadFile, FreeBoardVO board, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+	      log.info("f_modify:" + board);
+	      
+	      int index = 0;
+	      for (MultipartFile multipartFile : uploadFile) {
+	         // 실제로 upload된 file이 있을때만 upload 시킨다.
+	         if (multipartFile.getSize() > 0) {
+	            switch (index) {
+	            case 0:
+	               board.setImage1(UploadUtils.uploadFormPost(multipartFile, uploadPath));
+	               break;
+	            case 1:
+	               board.setImage2(UploadUtils.uploadFormPost(multipartFile, uploadPath));
+	               break;
+	            default:
+	               board.setImage3(UploadUtils.uploadFormPost(multipartFile, uploadPath));
+	               break;
+	            }
+	         }
+	         index++;
+	      }
+
+	      if (service.modify(board)) {
+	         rttr.addFlashAttribute("result", "success");
+	      }
+
+	      return "redirect:/front/free_board" + cri.getListLink();
+	   }
+
 	
 }

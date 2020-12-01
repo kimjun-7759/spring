@@ -1,6 +1,6 @@
 package kr.ync.mapper;
 
-import java.util.List;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

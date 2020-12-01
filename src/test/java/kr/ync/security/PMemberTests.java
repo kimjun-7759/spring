@@ -25,9 +25,9 @@ public class PMemberTests {
 	@Test
 	public void testInsertMember() {
 
-		String sql = "insert member(id, pwd, email, ,address, auth) values (?,?,?,?,?)";
-
-		for (int i = 0; i < 100; i++) {
+		String sql = "insert into member(userid, pwd, email, address, tel, auth) values (?,?,?,?,?,?)";
+		
+		for (int i = 0; i < 5; i++) {
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -38,19 +38,11 @@ public class PMemberTests {
 
 				pstmt.setString(2, pwencoder.encode("pwd" + i));
 
-				if (i < 80) {
-
 					pstmt.setString(1, "user" + i);
-					pstmt.setString(3, "일반사용자" + i);
-					pstmt.setString(4, "ROLE_USER");
-
-				} else if (i < 90) {
-
-					pstmt.setString(1, "manager" + i);
-					pstmt.setString(3, "운영자" + i);
-					pstmt.setString(4, "ROLE_MEMBER");
-
-				} 
+					pstmt.setString(3, "email" + i);
+					pstmt.setString(4, "address" + i);
+					pstmt.setString(5, "tel" + i);
+					pstmt.setString(6, "ROLE_USER");
 
 				pstmt.executeUpdate();
 

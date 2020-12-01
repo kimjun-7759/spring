@@ -1,5 +1,6 @@
 package kr.ync.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,7 @@ public class CommonController {
 		model.addAttribute("msg", "Access Denied");
 	}
 
-	@GetMapping("/customLogin")
+	@GetMapping("/front/sign_in")
 	public void loginInput(String error, String logout, Model model) {
 
 		log.info("error: " + error);
@@ -35,20 +36,7 @@ public class CommonController {
 		}
 	}
 	
-	@GetMapping("/Login")
-	public void login(String error, String logout, Model model) {
-
-		log.info("error: " + error);
-		log.info("logout: " + logout);
-
-		if (error != null) {
-			model.addAttribute("error", "Login Error Check Your Account");
-		}
-
-		if (logout != null) {
-			model.addAttribute("logout", "Logout!!");
-		}
-	}
+	
 
 	@GetMapping("/customLogout")
 	public void logoutGET() {

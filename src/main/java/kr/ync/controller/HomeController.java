@@ -40,7 +40,7 @@ public class HomeController {
    @GetMapping(value = "/")
    public String home() {
       
-      return "front/index";
+      return "home";
    }
    
 }

@@ -9,7 +9,7 @@ public class FreeBoardVO {
 	private int board_idx;
 	private String title;
 	private String content;
-	private String id;
+	private String userid;
 	private Date reg_date;
 	private Date update_date;
 	private String image1;

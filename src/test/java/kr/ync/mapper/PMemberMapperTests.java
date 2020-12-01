@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.ync.domain.MemberVO;
 import kr.ync.domain.PMemberVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -19,20 +20,14 @@ public class PMemberMapperTests {
 	private PMemberMapper member;
 	
 	@Test
-	public void testInsert() {
+	public void testRead() {
 
-		PMemberVO pm = new PMemberVO(); 
+		PMemberVO vo = member.read("shin");
+
+		log.info(vo);
 		
-		pm.setId("kkk");
-		pm.setPwd("1234");
-		pm.setEmail("wwoo7759@naver.com");
-		pm.setAddress("daegu");
-		pm.setTel("01012345678");
-		
+		vo.getAuth().forEach(authVO -> log.info(authVO));
 
-		member.insert(pm);
-
-		log.info(pm);
 	}
 	
 }

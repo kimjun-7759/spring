@@ -4,6 +4,9 @@
 
     
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>        
+
+<sec:authentication var="principal" property="principal"/>  
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +31,7 @@
     <!-- Banner-Slider-CSS -->
     <link rel="stylesheet" href="../../../resources/front/css/banner-style.css">
     <link rel="stylesheet" href="../../../resources/front/css/aos.css">
+    <link rel="stylesheet" href="../../../resources/front/css/lightbox.css">
     <link href='../../../resources/front/css/aos-animation.css' rel='stylesheet prefetch' type="text/css" media="all" />
     <!-- owl carousel -->
     <link rel="stylesheet" href="../../../resources/front/css/style.css" type="text/css" media="all" />
@@ -40,7 +44,17 @@
 </head>
 
         <div id="info_login">
-            <a href="/front/sign_up">로그인</a>
+        <sec:authorize access="isAnonymous()">
+            <a href="/front/sign_in">로그인</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+            <div>
+            <a>${principal.username}</a>   
+            </div>
+            <div>
+            <a href="/front/sign_in">로그아웃</a>
+            </div>
+            </sec:authorize>
         </div>
 
         <!--/nav-->

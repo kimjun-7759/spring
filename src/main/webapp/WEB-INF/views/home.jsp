@@ -7,7 +7,7 @@
 <body>
 
 <script>
-self.location ="/admin/list";
+self.location ="/front/index";
 </script>
 
 </body>

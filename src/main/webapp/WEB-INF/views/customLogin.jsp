@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Bootstrap Admin Theme</title>
+<title></title>
 
 <!-- Bootstrap Core CSS -->
 <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -47,6 +47,7 @@
 						<h3 class="panel-title">Please Sign In</h3>
 					</div>
 					<div class="panel-body">
+					
 						<form role="form" method='post' action="/login">
 							<fieldset>
 								<div class="form-group">
@@ -89,10 +90,6 @@
 	<!-- Custom Theme JavaScript -->
 	<script src="/resources/dist/js/sb-admin-2.js"></script>
   <script>
-  
-  
-  
-  
   $(".btn-success").on("click", function(e){
     
     e.preventDefault();

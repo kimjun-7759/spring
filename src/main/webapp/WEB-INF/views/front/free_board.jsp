@@ -13,24 +13,6 @@
     <!-- Bootstrap Core CSS -->
     <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8" />
-<meta name="keywords"
-	content="Photowall Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script>
-	addEventListener("load", function() {
-		setTimeout(hideURLbar, 0);
-	}, false);
-
-	function hideURLbar() {
-		window.scrollTo(0, 1);
-	}
-</script>
-<!-- //Meta tag Keywords -->
-
-
 </head>
 
 <body>
@@ -69,7 +51,7 @@
 									href='<c:out value="${f_board.board_idx}"/>'> <c:out
 											value="${f_board.title}" />
 								</a></td>
-								<td><c:out value="${f_board.id}" /></td>
+								<td><c:out value="${f_board.userid}" /></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"
 										value="${f_board.reg_date}" /></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"

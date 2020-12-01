@@ -67,6 +67,7 @@ public class BoardController {
 //
 //   }
    
+   
    @PreAuthorize("isAuthenticated()")
    @PostMapping("/register")
    public String register(MultipartFile[] uploadFile, BoardVO board, RedirectAttributes rttr) {

@@ -23,7 +23,7 @@ public class PMemberServiceTests {
 	public void testRegister() {
 
 		PMemberVO pm = new PMemberVO();
-		pm.setId("www121");
+		pm.setUserid("www121");
 		pm.setPwd("www");
 		pm.setEmail("www@naver.com");
 		pm.setAddress("대구시");
@@ -31,6 +31,6 @@ public class PMemberServiceTests {
 
 		service.register(pm);
 
-		log.info("생성된 맴버의 아이디: " + pm.getId());
+		log.info("생성된 맴버의 아이디: " + pm.getUserid());
 	}
 }

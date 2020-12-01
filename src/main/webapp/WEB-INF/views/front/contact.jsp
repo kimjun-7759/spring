@@ -6,31 +6,6 @@
 <head>
     <title>Photowall Photo Gallery Category Bootstrap Responsive Template | Contact :: W3layouts</title>
     <!-- Meta tag Keywords -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8" />
-    <meta name="keywords" content="Photowall Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <script>
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!-- //Meta tag Keywords -->
-
-    <!-- Custom-Files -->
-    <link rel="stylesheet" href="../../../resources/front/css/bootstrap.css">
-    <link rel="stylesheet" href="../../../resources/front/css/aos.css">
-    <link href='../../../resources/front/css/aos-animation.css' rel='stylesheet prefetch' type="text/css" media="all" />
-    <link rel="stylesheet" href="../../../resources/front/css/style.css" type="text/css" media="all" />
-    <!-- Style-CSS -->
-    <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-    <!-- Font-Awesome-Icons-CSS -->
-    <link href="//fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
-
 </head>
 
 <body>
@@ -127,51 +102,6 @@
     <!--/footer-->
     <%@include file="footer.jsp"%>
     <!--//footer-->
-
-    <script src="../../../resources/front/js/jquery-2.2.3.min.js"></script>
-    <script src='../../../resources/front/js/aos.js'></script>
-    <script>
-        AOS.init({
-            easing: 'ease-out-back',
-            duration: 1000
-        });
-    </script>
-    <!--/ start-smoth-scrolling -->
-    <script src="../../../resources/front/js/move-top.js"></script>
-    <script src="../../../resources/front/js/easing.js"></script>
-    <script>
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            /*
-            						var defaults = {
-            							  containerID: 'toTop', // fading element id
-            							containerHoverID: 'toTopHover', // fading element hover id
-            							scrollSpeed: 1200,
-            							easingType: 'linear' 
-            						 };
-            						*/
-
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-
-        });
-    </script>
-    <!--// end-smoth-scrolling -->
-
-    <!-- //js -->
-
-    <script src="../../../resources/front/js/bootstrap.js"></script>
-
 </body>
 
 </html>

@@ -29,8 +29,8 @@
    </select>
 -->
    <insert id="insert">
-       insert into freeboard (board_idx, title, content, id, image1, image2, image3)
-      values ( board_idx.nextval, #{title}, #{content}, #{id}, #{image1}, #{image2}, #{image3})
+       insert into freeboard (board_idx, title, content, userid, image1, image2, image3)
+      values ( board_idx.nextval, #{title}, #{content}, #{userid}, #{image1}, #{image2}, #{image3})
    </insert>
    
    <insert id="insertSelectKey">
@@ -40,8 +40,8 @@
          select board_idx.nextval from dual
       </selectKey>
 
-      insert into freeboard (board_idx, title, content, id, image1, image2, image3)
-      values (#{board_idx}, #{title}, #{content}, #{id}, #{image1}, #{image2}, #{image3})
+      insert into freeboard (board_idx, title, content, userid, image1, image2, image3)
+      values (#{board_idx}, #{title}, #{content}, #{userid}, #{image1}, #{image2}, #{image3})
    </insert>
    
    <select id="read" resultType="kr.ync.domain.FreeBoardVO">
@@ -57,7 +57,7 @@
       update freeboard
       set title= #{title},
       content=#{content},
-      id = #{id},
+      userid = #{userid},
       image1 = #{image1},
       image2 = #{image2},
       image3 = #{image3},
@@ -190,18 +190,18 @@
       SELECT   board_idx,
             title,
             content,
-            id,
+            userid,
             reg_date,
             update_date,
             image1,
             image2,
             image3
-      FROM   (SELECT /*+INDEX_DESC(freeboard board_idx) */
+      FROM   (SELECT /*+INDEX_DESC(freeboard XPK자유게시판) */
                     rownum rn,
                     board_idx,
                     title,
                     content,
-                    id,
+                    userid,
                     reg_date,
                     update_date,
                     image1,
@@ -216,7 +216,7 @@
                rownum <= #{pageNum} * #{amount}
                )
         WHERE rn > (#{pageNum} -1) * #{amount}  
-        ORDER BY board_idx desc 
+        
       ]]>
    </select>
    

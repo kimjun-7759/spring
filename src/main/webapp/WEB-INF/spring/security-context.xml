@@ -5,24 +5,43 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- 인증관련 빈 설정 -->
-	<bean id="customAccessDenied" class="kr.ync.security.CustomAccessDeniedHandler"></bean>
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-	<bean id="customUserDetailsService"	class="kr.ync.security.CustomUserDetailsService"></bean>
+	<!-- 인증관련 빈 설정 -->	
+	<bean id="customLoginSuccess" class="kr.ync.security.CustomLoginSuccessHandler"></bean> 
+	<bean id="customAccessDenied" class="kr.ync.security.CustomAccessDeniedHandler"></bean>	
 	
-	<security:http>
-		
-		<security:form-login login-page="/customLogin" />
-		<security:logout logout-url="/customLogout"	invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" />
-		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	 
+	<bean id="customUserDetailsService"	class="kr.ync.security.CustomUserDetailsService"></bean>
+	 
+	
+	<security:http auto-config="true">
+		<security:form-login login-page="/front/sign_in" authentication-success-handler-ref="customLoginSuccess"/>	
+		<security:intercept-url pattern="/front/index" access="hasRole('ROLE_USER')"/>	
 		<security:access-denied-handler ref="customAccessDenied" />
+		
+			 
+	 	<security:logout logout-url="/customLogout"	invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" />
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
+		 
+		 
+		 
 	</security:http>
 
 	<security:authentication-manager>
+		  	
 		<security:authentication-provider user-service-ref="customUserDetailsService">
 			<security:password-encoder ref="bcryptPasswordEncoder" />
 		</security:authentication-provider>
+		
+		
+		<!-- 
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="user" password="{noop}user" authorities="ROLE_USER"/>
+			</security:user-service>
+		</security:authentication-provider>
+		 -->
 	</security:authentication-manager>
-	
+
 	
 </beans>

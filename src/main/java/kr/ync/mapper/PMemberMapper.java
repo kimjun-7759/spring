@@ -6,4 +6,6 @@ public interface PMemberMapper {
 	
 	public void insert(PMemberVO pm);
 
+	public PMemberVO read(String userid);
+
 }

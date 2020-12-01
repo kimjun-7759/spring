@@ -45,7 +45,7 @@ function getThumbFileName(fullFilePath) {
 
 					<div class="form-group">
 						<label>id</label> <input class="form-control" name='id'
-							value='<c:out value="${freeboard.id }"/>' readonly="readonly">
+							value='<c:out value="${freeboard.userid }"/>' readonly="readonly">
 					</div>
 
 					
@@ -68,14 +68,14 @@ function getThumbFileName(fullFilePath) {
 					
 					<sec:authentication property="principal" var="pinfo" />
 					 <sec:authorize access="isAuthenticated()">
-					<!-- 	<c:if test="${pinfo.username eq freeboard.id}">-->
-							<button data-oper='modify' class="btn btn-default">Modify</button>
-					<!--	</c:if>-->
+					 	<c:if test="${pinfo.username eq freeboard.userid}">
+							<button data-oper='f_modify' class="btn btn-default">Modify</button>
+						</c:if>
 						 
 					</sec:authorize>
 					<button data-oper='list' class="btn btn-info">List</button>
 
-					<form id='operForm' action="/free_board/modify" method="get">
+					<form id='operForm' action="/front/f_modify" method="get">
 						<input type='hidden' id='board_idx' name='board_idx'
 							value='<c:out value="${freeboard.board_idx}"/>'> <input
 							type='hidden' name='pageNum'
@@ -184,9 +184,9 @@ $(document).ready(function() {
   
   var operForm = $("#operForm"); 
   
-  $("button[data-oper='modify']").on("click", function(e){
+  $("button[data-oper='f_modify']").on("click", function(e){
     
-    operForm.attr("action","/admin/modify").submit();
+    operForm.attr("action","/front/f_modify").submit();
     
   });
   
@@ -200,50 +200,6 @@ $(document).ready(function() {
   });  
 });
 </script>
-
-	<script src="../../../resources/front/js/jquery-2.2.3.min.js"></script>
-	<script src='../../../resources/front/js/aos.js'></script>
-	<script>
-        AOS.init({
-            easing: 'ease-out-back',
-            duration: 1000
-        });
-    </script>
-	<!--/ start-smoth-scrolling -->
-	<script src="../../../resources/front/js/move-top.js"></script>
-	<script src="../../../resources/front/js/easing.js"></script>
-	<script>
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
-        });
-    </script>
-	<script>
-        $(document).ready(function() {
-            /*
-            						var defaults = {
-            							  containerID: 'toTop', // fading element id
-            							containerHoverID: 'toTopHover', // fading element hover id
-            							scrollSpeed: 1200,
-            							easingType: 'linear' 
-            						 };
-            						*/
-
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-
-        });
-    </script>
-	<!--// end-smoth-scrolling -->
-
-	<!-- //js -->
-
-	<script src="../../../resources/front/js/bootstrap.js"></script>
 
 </body>
 

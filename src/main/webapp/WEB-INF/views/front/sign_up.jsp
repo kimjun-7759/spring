@@ -48,7 +48,7 @@
                         <div class="sign-up-htm">
                             <div class="group">
                                 <label for="user" class="label">id</label> <input id="user" type="text" class="input"
-                                    name="id">
+                                    name="userid">
                             </div>
                             <div class="group">
                                 <label for="pass" class="label">Password</label> <input id="pass" type="password"
@@ -74,7 +74,7 @@
 
                             <div class="hr"></div>
                             <div class="foot-lnk">
-                                <a href="#forgot">Already Member?</a>
+                                <a href="/front/sign_in">Already Member?</a>
                             </div>
                         </div>
                     </form>
