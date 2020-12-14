@@ -1,74 +1,81 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.ync.mapper.MessageMapper">
-
+<sql id="criteria">
+      <trim prefix="(" suffix=") AND " prefixOverrides="OR">
+         <foreach item='type' collection="typeArr">
+            <trim prefix="OR">
+               <choose>
+                  <when test="type == 'T'.toString()">
+                     title like '%'||#{keyword}||'%'
+                  </when>
+                  <when test="type == 'C'.toString()">
+                     content like '%'||#{keyword}||'%'
+                  </when>
+                  <when test="type == 'I'.toString()">
+                     id like '%'||#{keyword}||'%'
+                  </when>
+               </choose>
+            </trim>
+         </foreach>
+      </trim>
+   </sql>
+   
 	<insert id="insert">
 		INSERT INTO Message (message_idx, id, content, receivce_id)
 		VALUES (message_idx.nextval, #{id}, #{content}, #{receivce_id})
 	</insert>
+	
+	<select id="getList" resultType="kr.ync.domain.MessageVO">
 
-	<select id="read" resultType="kr.ync.domain.ReplyVO">
-		SELECT * FROM tbl_reply WHERE rno =	#{rno}
+		select	message_idx, id, content, receivce_id
+		from	message
+		where	message_idx = #{message_idx}
+		order by message_idx DESC
+
+	</select>
+	
+	<select id="read" resultType="kr.ync.domain.MessageVO">
+		SELECT * FROM message WHERE message_idx = #{message_idx}
 	</select>
 
 	<delete id="delete">
-		DELETE FROM tbl_reply WHERE rno = #{rno}
+		DELETE FROM message WHERE message_idx = #{message_idx}
 	</delete>
-
-	<update id="update">
-		UPDATE tbl_reply SET	reply = #{reply},
-								updatedate = sysdate 
-		WHERE rno = #{rno}
-		
-		<!-- 
-		UPDATE tbl_reply SET
-		<set>
-	      <if test="reply != null">reply=#{reply},</if>
-	    </set>
-	    updatedate = sysdate
-	    WHERE rno = #{rno}
-	    -->
-	</update>
-
-
-	<select id="getList" resultType="kr.ync.domain.ReplyVO">
-
-		select rno, bno, reply, replyer, replyDate, updatedate
-		from tbl_reply
-		where bno = #{bno}
-		order by rno DESC
-
-	</select>
-
-	<select id="getListWithPaging" resultType="kr.ync.domain.ReplyVO">
-		<![CDATA[
-	 		SELECT	rno,
-	 				bno,
-	 				reply,
-	 				replyer,
-	 				replydate,
-	 				updatedate
-	 		FROM	(SELECT /*+INDEX_DESC(tbl_reply idx_reply) */ 
+	
+	<select id="getListWithPaging" resultType="kr.ync.domain.MessageVO">
+      <![CDATA[
+      SELECT	message_idx,
+	 			id,
+	 			content,
+	 			receivce_id
+      FROM	(SELECT /*+INDEX_DESC(message XPK메세지) */ 
 	      					rownum rn,
-	      					rno,
-	      					bno,
-	      					reply,
-	      					replyer,
-	      					replyDate,
-	      					updatedate
-	    			FROM	tbl_reply
-	    			WHERE	bno =  #{bno}
-	    			AND		rno > 0
-	    			AND		rownum <= #{cri.pageNum} * #{cri.amount}
-	   				)
-	   		WHERE	rn > (#{cri.pageNum} -1) * #{cri.amount}
-		]]>
-	</select>
-
-	<select id="getCountByBno" resultType="int">
-		<![CDATA[
-		SELECT count(rno) FROM tbl_reply WHERE bno = #{bno}
-		]]>
-	</select>
+	      					message_idx,
+	 						id,
+	 						content,
+	 						receivce_id
+               FROM	message
+            WHERE 
+        ]]>
+      <include refid="criteria"></include> 
+      
+      <![CDATA[    
+               rownum <= #{pageNum} * #{amount}
+               )
+        WHERE rn > (#{pageNum} -1) * #{amount}  
+        
+      ]]>
+   </select>
+	
+	<select id="getTotalCount" resultType="int">
+      select count(*) from message where 
+      
+      <include refid="criteria"></include>
+      
+      <![CDATA[
+      message_idx > 0
+      ]]>
+   </select>
 
 </mapper>

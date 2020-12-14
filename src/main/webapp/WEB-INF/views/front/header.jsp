@@ -48,12 +48,7 @@
             <a href="/front/sign_in">로그인</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
-            <div>
-            <a>${principal.username}</a>   
-            </div>
-            <div>
-            <a href="/front/sign_in">로그아웃</a>
-            </div>
+            <a href="/front/logout">${principal.username}님 <br>로그아웃</a>
             </sec:authorize>
         </div>
 

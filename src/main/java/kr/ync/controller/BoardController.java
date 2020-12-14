@@ -15,8 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.ync.domain.BoardVO;
 import kr.ync.domain.Criteria;
-import kr.ync.domain.PageDTO;
+import kr.ync.domain.MessageVO;
 import kr.ync.service.BoardService;
+import kr.ync.service.MessageService;
 import kr.ync.util.UploadUtils;
 import lombok.extern.log4j.Log4j;
 
@@ -30,6 +31,9 @@ public class BoardController {
    
    @Autowired
    private BoardService service;
+   
+   @Autowired
+   private MessageService Ms;
 
    @GetMapping("/register")
 //   @PreAuthorize("isAuthenticated()")
@@ -47,10 +51,25 @@ public class BoardController {
 	   
    }
    
+   
    @GetMapping("/contact")
+   @PreAuthorize("isAuthenticated()")
    public void contact() {
 	   
    }
+   
+   @PreAuthorize("isAuthenticated()")
+   @PostMapping("/contact")
+   public String contact(MessageVO Mss, RedirectAttributes rttr) {
+	   log.info("contact: " + Mss);
+
+	      Ms.m_register(Mss);
+
+	      rttr.addFlashAttribute("result", Mss.getMessage_idx());
+
+	      return "redirect:/front/contact";
+   }
+   
    
 //   @PreAuthorize("hasRole('ROLE_ADMIN')")
 //   
@@ -65,39 +84,39 @@ public class BoardController {
 //      model.addAttribute("list", service.getListWithPaging(cri));
 //      model.addAttribute("pageMaker", new PageDTO(cri, total));
 //
+//   } 
+   
+   
+//   @PreAuthorize("isAuthenticated()")
+//   @PostMapping("/register")
+//   public String register(MultipartFile[] uploadFile, BoardVO board, RedirectAttributes rttr) {
+//      
+//      int index = 0;
+//      for (MultipartFile multipartFile : uploadFile) {
+//         if(multipartFile.getSize() > 0) {
+//            switch (index) {
+//            case 0:
+//               board.setFile_1(UploadUtils.uploadFormPost(multipartFile, uploadPath));
+//               break;
+//            case 1:
+//               board.setFile_2(UploadUtils.uploadFormPost(multipartFile, uploadPath));
+//               break;
+//            default:
+//               board.setFile_3(UploadUtils.uploadFormPost(multipartFile, uploadPath));
+//               break;
+//            }
+//         }
+//         index++;
+//      }
+//      
+//      log.info("register: " + board);
+//
+//      service.register(board);
+//
+//      rttr.addFlashAttribute("result", board.getBno());
+//
+//      return "redirect:/admin/list";
 //   }
-   
-   
-   @PreAuthorize("isAuthenticated()")
-   @PostMapping("/register")
-   public String register(MultipartFile[] uploadFile, BoardVO board, RedirectAttributes rttr) {
-      
-      int index = 0;
-      for (MultipartFile multipartFile : uploadFile) {
-         if(multipartFile.getSize() > 0) {
-            switch (index) {
-            case 0:
-               board.setFile_1(UploadUtils.uploadFormPost(multipartFile, uploadPath));
-               break;
-            case 1:
-               board.setFile_2(UploadUtils.uploadFormPost(multipartFile, uploadPath));
-               break;
-            default:
-               board.setFile_3(UploadUtils.uploadFormPost(multipartFile, uploadPath));
-               break;
-            }
-         }
-         index++;
-      }
-      
-      log.info("register: " + board);
-
-      service.register(board);
-
-      rttr.addFlashAttribute("result", board.getBno());
-
-      return "redirect:/admin/list";
-   }
 
    @GetMapping({ "/get", "/modify" })
    public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {

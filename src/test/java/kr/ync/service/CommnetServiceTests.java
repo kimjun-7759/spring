@@ -22,13 +22,13 @@ public class CommnetServiceTests {
 	@Test
 	public void testRegister() {
 
-		CommentVO co = new CommentVO();
-		co.setBoard_idx(1);
-		co.setId("www");
-		co.setComments("서비스 글 등록 테스트");
+//		CommentVO co = new CommentVO();
+//		co.setBoard_idx(1);
+//		co.setId("www");
+//		co.setComments("서비스 글 등록 테스트");
 
-		service.register(co);
-
-		log.info("생성된 게시물의 번호: " + co.getIdx());
+//		service.register(co);
+//
+//		log.info("생성된 게시물의 번호: " + co.getIdx());
 	}
 }

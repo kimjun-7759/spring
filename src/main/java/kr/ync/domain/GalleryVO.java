@@ -1,6 +1,5 @@
 package kr.ync.domain;
 
-import java.util.Date;
 
 import lombok.Data;
 

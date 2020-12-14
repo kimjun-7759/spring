@@ -17,9 +17,10 @@
 	<security:http auto-config="true">
 		<security:form-login login-page="/front/sign_in" authentication-success-handler-ref="customLoginSuccess"/>	
 		<security:intercept-url pattern="/front/index" access="hasRole('ROLE_USER')"/>	
+		<security:intercept-url pattern="/admin/list" access="hasRole('ROLE_ADMIN')"/>	
 		<security:access-denied-handler ref="customAccessDenied" />
 		
-			 
+		<security:logout logout-url="/"/>	 
 	 	<security:logout logout-url="/customLogout"	invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" />
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
 		 

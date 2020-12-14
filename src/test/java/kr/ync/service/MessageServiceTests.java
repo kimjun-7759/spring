@@ -19,16 +19,16 @@ public class MessageServiceTests {
 	@Setter(onMethod_ = { @Autowired })
 	private MessageService service;
 	
-	@Test
-	public void testRegister() {
-
-		MessageVO ms = new MessageVO();
-		ms.setId("www");
-		ms.setContent("메세지 시도123");
-		ms.setReceivce_id("admin");
-		
-		service.register(ms);
-
-		log.info("생성된 게시물의 번호: " + ms.getMessage_idx());
-	}
+//	@Test
+//	public void testRegister() {
+//
+//		MessageVO ms = new MessageVO();
+//		ms.setId("bae");
+//		ms.setContent("메세지 시도123");
+//		ms.setReceivce_id("admin");
+//		
+//		service.register(ms);
+//
+//		log.info("생성된 게시물의 번호: " + ms.getMessage_idx());
+//	}
 }

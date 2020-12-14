@@ -23,8 +23,8 @@ public class PMemberServiceTests {
 	public void testRegister() {
 
 		PMemberVO pm = new PMemberVO();
-		pm.setUserid("www121");
-		pm.setPwd("www");
+		pm.setUserid("admin");
+		pm.setPwd("1234");
 		pm.setEmail("www@naver.com");
 		pm.setAddress("대구시");
 		pm.setTel("01012341234");

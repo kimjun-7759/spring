@@ -6,7 +6,7 @@
 <%@include file="../includes/header.jsp"%>
 <div class="row">
    <div class="col-lg-12">
-      <h1 class="page-header">Tables</h1>
+      <h1 class="page-header">Message</h1>
    </div>
    <!-- /.col-lg-12 -->
 </div>
@@ -15,12 +15,6 @@
 <div class="row">
    <div class="col-lg-12">
       <div class="panel panel-default">
-         <div class="panel-heading">
-            Board List Page
-            <button id='regBtn' type="button" class="btn btn-xs pull-right">Register
-               New Board</button>
-         </div>
-
          <!-- /.panel-heading -->
          <div class="panel-body">
             <table class="table table-striped table-bordered table-hover">
@@ -28,21 +22,20 @@
                   <tr>
                      <th>#번호</th>
                      <th>제목</th>
-                     <th>작성자</th>
-                     <th>작성일</th>
-                     <th>수정일</th>
+                     <th>발신자</th>
+                     <th>수신자</th>
                   </tr>
                </thead>
 
-               <c:forEach items="${list}" var="board">
+               <c:forEach items="${list}" var="message">
                   <tr>
-                     <td><c:out value="${board.bno}" /></td>
-                     <td><a class='move' href='<c:out value="${board.bno}"/>'><c:out value="${board.title}" />
-                     <b>[<c:out value="${board.replyCnt}" />]</b></a> 
+                     <td><c:out value="${message.message_idx}" /></td>
+                     <td><a class='move' href='<c:out value="${message.message_idx}"/>'>
+                     <c:out value="${message.content}" />
+                     </a> 
                      </td>
-                     <td><c:out value="${board.writer}" /></td>
-                     <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}" /></td>
-                     <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate}" /></td>
+                     <td><c:out value="${message.id}" /></td>
+                     <td><c:out value="${message.receivce_id}" /></td>
                   </tr>
                </c:forEach>
                
@@ -188,8 +181,8 @@
       // 상세보기 클릭 이벤트
       $(".move").on("click",function(e) {
          e.preventDefault();
-         actionForm.append("<input type='hidden' name='bno' value='" + $(this).attr("href")   + "'>");
-         actionForm.attr("action", "/admin/get");
+         actionForm.append("<input type='hidden' name='message_idx' value='" + $(this).attr("href")   + "'>");
+         actionForm.attr("action", "/admin/m_get");
          actionForm.submit();
       });
       
@@ -212,5 +205,3 @@
       });
    });
 </script>
-
-<%@include file="../includes/footer.jsp"%>

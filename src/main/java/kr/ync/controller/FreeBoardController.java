@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.ync.domain.BoardVO;
 import kr.ync.domain.Criteria;
 import kr.ync.domain.FreeBoardVO;
 import kr.ync.domain.PageDTO;
@@ -65,11 +64,6 @@ public class FreeBoardController {
 		   model.addAttribute("pageMaker", new PageDTO(cri, total));
 	   }
 	   
-	   
-//	   @GetMapping("/writer")
-//	   public void writer() {
-//		   
-//	   }
 	   
 	   @GetMapping("/f_register")
 	   @PreAuthorize("isAuthenticated()")
@@ -140,6 +134,17 @@ public class FreeBoardController {
 	      }
 
 	      if (service.modify(board)) {
+	         rttr.addFlashAttribute("result", "success");
+	      }
+
+	      return "redirect:/front/free_board" + cri.getListLink();
+	   }
+	   
+	   @PostMapping("/f_remove")
+	   public String remove(@RequestParam("board_idx") Long board_idx, Criteria cri, RedirectAttributes rttr, String userid) {
+
+	      log.info("remove..." + board_idx);
+	      if (service.remove(board_idx)) {
 	         rttr.addFlashAttribute("result", "success");
 	      }
 

@@ -236,7 +236,8 @@
 							<a href="../resources/img/22.jpg" data-lightbox="example-set"
 								data-title-wthree="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
 								<figure>
-									<img src="../resources/img/22.jpg" alt=" " class="img-fluid">
+								   <img src="../resources/img/132.jpg" alt=" " class="img-fluid">
+									<!-- <img src="../resources/img/22.jpg" alt=" " class="img-fluid"> -->
 								</figure>
 							</a>
 						</div>

@@ -1,11 +1,14 @@
 package kr.ync.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.log4j.Log4j;
 
@@ -35,6 +38,13 @@ public class CommonController {
 			model.addAttribute("logout", "Logout!!");
 		}
 	}
+	
+	@RequestMapping("/front/logout")
+	    public ModelAndView logout(HttpSession session) {
+	        session.invalidate();
+	        ModelAndView mv = new ModelAndView("redirect:/");
+	        return mv;
+	    }
 	
 	
 

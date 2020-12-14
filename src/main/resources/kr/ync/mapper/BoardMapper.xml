@@ -235,7 +235,7 @@
       ]]>
    </select>
    
-   <update id="updateReplyCnt">
+   <update id="updateCommentCnt">
       UPDATE tbl_board SET replycnt = replycnt + #{amount} WHERE bno = #{bno}
    </update> 
 </mapper>

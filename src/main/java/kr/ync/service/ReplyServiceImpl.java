@@ -24,12 +24,12 @@ public class ReplyServiceImpl implements ReplyService {
 	private BoardMapper boardMapper;
 	
 	@Transactional
-	@Override
-	public int register(ReplyVO vo) {
-		log.info("register......" + vo);
-		boardMapper.updateReplyCnt(vo.getBno(), 1);
-		return mapper.insert(vo);
-	}
+//	@Override
+//	public int register(ReplyVO vo) {
+//		log.info("register......" + vo);
+//		boardMapper.updateReplyCnt(vo.getBno(), 1);
+//		return mapper.insert(vo);
+//	}
 
 	@Override
 	public ReplyVO get(Long rno) {
@@ -44,14 +44,14 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 	
 	@Transactional
-	@Override
-	public int remove(Long rno) {
-		log.info("remove...." + rno);
-		
-		ReplyVO vo = mapper.read(rno);
-		boardMapper.updateReplyCnt(vo.getBno(), -1);
-		return mapper.delete(rno);
-	}
+//	@Override
+//	public int remove(Long rno) {
+//		log.info("remove...." + rno);
+//		
+//		ReplyVO vo = mapper.read(rno);
+//		boardMapper.updateReplyCnt(vo.getBno(), -1);
+//		return mapper.delete(rno);
+//	}
 
 	@Override
 	public List<ReplyVO> getList(Criteria cri, Long bno) {

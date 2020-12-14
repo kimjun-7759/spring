@@ -2,239 +2,72 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.ync.mapper.CommentMapper">
    
-   <sql id="criteria">
-      <trim prefix="(" suffix=") AND " prefixOverrides="OR">
-         <foreach item='type' collection="typeArr">
-            <trim prefix="OR">
-               <choose>
-                  <when test="type == 'T'.toString()">
-                     title like '%'||#{keyword}||'%'
-                  </when>
-                  <when test="type == 'C'.toString()">
-                     content like '%'||#{keyword}||'%'
-                  </when>
-                  <when test="type == 'W'.toString()">
-                     writer like '%'||#{keyword}||'%'
-                  </when>
-               </choose>
-            </trim>
-         </foreach>
-      </trim>
-   </sql>
-   
-   <select id="getList" resultType="kr.ync.domain.CommentVO">
-   <![CDATA[
-      select * from tbl_board where bno > 0 
-      ]]>
-   </select>
-   
    <insert id="insert">
-       insert into free_comment (idx, board_idx, id, comments)
-      values (idx.nextval, #{board_idx}, #{id}, #{comments})
-   </insert>
-   
-   <insert id="insertSelectKey">
+		INSERT INTO free_comment (comment_idx, userid, board_idx, comments)
+		VALUES (comment_idx.nextval, #{userid}, #{board_idx}, #{comments})
+	</insert>
 
-      <selectKey keyProperty="bno" order="BEFORE"
-         resultType="Long">
-         select idx.nextval from dual
-      </selectKey>
+	<select id="read" resultType="kr.ync.domain.CommentVO">
+		SELECT * FROM free_comment WHERE comment_idx =	#{comment_idx}
+	</select>
 
-      insert into free_comment (idx, board_idx, id, comments)
-      values (idx.nextval, #{board_idx}, #{id}, #{comments})
-   </insert>
-   
-   <select id="read" resultType="kr.ync.domain.FreeBoardVO">
-      select * from tbl_board where bno =   #{bno}
-   </select>
+	<delete id="delete">
+		DELETE FROM free_comment WHERE comment_idx = #{comment_idx}
+	</delete>
+
+	<update id="update">
+		UPDATE free_comment SET	comments = #{comments},
+								update_date = sysdate 
+		WHERE comment_idx = #{comment_idx}
+		
+		<!-- 
+		UPDATE tbl_reply SET
+		<set>
+	      <if test="reply != null">reply=#{reply},</if>
+	    </set>
+	    updatedate = sysdate
+	    WHERE rno = #{rno}
+	    -->
+	</update>
 
 
-   <delete id="delete">
-      delete tbl_board where bno = #{bno}
-   </delete>
- 
-   <update id="update">
-      update tbl_board
-      set title= #{title},
-      content=#{content},
-      writer = #{writer},
-      file_1 = #{file_1},
-      file_2 = #{file_2},
-      file_3 = #{file_3},
-      updateDate = sysdate
-      where bno =
-      #{bno}
-   </update>
-   
-   <!-- <select id="getListWithPaging" resultType="kr.ync.domain.BoardVO">
-      <![CDATA[
-        SELECT   bno,
-              title,
-              content,
-              writer,
-              regdate,
-              updatedate
-      FROM   (SELECT /*+INDEX_DESC(tbl_board pk_board) */
-                  rownum rn,
-                  bno,
-                  title,
-                  content,
-                  writer,
-                  regdate,
-                  updatedate
-            FROM   tbl_board
-            WHERE   rownum <= 20 
-            )
-      WHERE rn > 10   
-      ]]>
-   </select> -->
-   <!-- 
-   <select id="getListWithPaging" resultType="kr.ync.domain.BoardVO">
-      <![CDATA[
-        SELECT   bno,
-              title,
-              content,
-              writer,
-              regdate,
-              updatedate
-      FROM   (SELECT /*+INDEX_DESC(tbl_board pk_board) */
-                  rownum rn,
-                  bno,
-                  title,
-                  content,
-                  writer,
-                  regdate,
-                  updatedate
-            FROM   tbl_board
-            WHERE   rownum <= #{pageNum} * #{amount}
-            )
-      WHERE rn > (#{pageNum} -1) * #{amount}
-      ]]>
-   </select>
-    -->
-   <!-- 
-   <select id="getListWithPaging" resultType="kr.ync.domain.BoardVO">
-      <![CDATA[
-         SELECT   bno,
-               title,
-               content,
-               writer,
-               regdate,
-               updatedate
-         FROM   (SELECT /*+INDEX_DESC(tbl_board pk_board) */
-                       rownum rn,
-                       bno,
-                       title,
-                       content,
-                       writer,
-                       regdate,
-                       updatedate 
-               FROM   tbl_board
-               WHERE
-      ]]>   
-               <trim prefix="(" suffix=") AND " prefixOverrides="OR">
-                  <foreach item='type' collection="typeArr">
-                     <trim prefix="OR">
-                        <choose>
-                           <when test="type == 'T'.toString()">
-                              title like '%'||#{keyword}||'%'
-                           </when>
-                           <when test="type == 'C'.toString()">
-                              content like '%'||#{keyword}||'%'
-                           </when>
-                           <when test="type == 'W'.toString()">
-                              writer like '%'||#{keyword}||'%'
-                           </when>
-                        </choose>
-                     </trim>
-                  </foreach>
-               </trim>
-      <![CDATA[
-               rownum <= #{pageNum} * #{amount}
-                  )
-         WHERE rn > (#{pageNum} -1) * #{amount}   
-        ]]>
-   </select>
-    -->
-   
-   <!-- <select id="getListWithPaging" resultType="kr.ync.domain.BoardVO">
-      <![CDATA[
-      SELECT   bno,
-            title,
-            content,
-            writer,
-            regdate,
-            updatedate
-      FROM   (SELECT /*+INDEX_DESC(tbl_board pk_board) */
-                    rownum rn,
-                    bno,
-                    title,
-                    content,
-                    writer,
-                    regdate,
-                    updatedate 
-               FROM   tbl_board
-            WHERE 
-        ]]>
-        
-      <include refid="criteria"></include> 
-      
-      <![CDATA[    
-               rownum <= #{pageNum} * #{amount}
-               )
-        WHERE rn > (#{pageNum} -1) * #{amount}   
-      ]]>
-   </select> -->
-   
-   <select id="getListWithPaging" resultType="kr.ync.domain.BoardVO">
-      <![CDATA[
-      SELECT   bno,
-            title,
-            content,
-            writer,
-            regdate,
-            updatedate,
-            replycnt
-      FROM   (SELECT /*+INDEX_DESC(tbl_board pk_board) */
-                    rownum rn,
-                    bno,
-                    title,
-                    content,
-                    writer,
-                    regdate,
-                    updatedate,
-                    replycnt
-               FROM   tbl_board
-            WHERE 
-        ]]>
-      <include refid="criteria"></include> 
-      
-      <![CDATA[    
-               rownum <= #{pageNum} * #{amount}
-               )
-        WHERE rn > (#{pageNum} -1) * #{amount}   
-      ]]>
-   </select>
-   
-   <!-- 
-   <select id="getTotalCount" resultType="int">
-      <![CDATA[
-      select count(*) from tbl_board where 
-      bno > 0
-      ]]>
-   </select>
-    -->
-   <select id="getTotalCount" resultType="int">
-      select count(*) from tbl_board where 
-      
-      <include refid="criteria"></include>
-      
-      <![CDATA[
-      bno > 0
-      ]]>
-   </select>
-   
-   <update id="updateReplyCnt">
-      UPDATE tbl_board SET replycnt = replycnt + #{amount} WHERE bno = #{bno}
-   </update> 
+	<select id="getList" resultType="kr.ync.domain.CommentVO">
+
+		select comment_idx, userid, reg_date, update_date, board_idx, comments
+		from free_comment
+		where board_idx = #{board_idx}
+		order by comment_idx DESC
+
+	</select>
+
+	<select id="getListWithPaging" resultType="kr.ync.domain.CommentVO">
+		<![CDATA[
+	 		SELECT	comment_idx,
+	 				board_idx,
+	 				comments,
+	 				userid,
+	 				reg_date,
+	 				update_date
+	 		FROM	(SELECT /*+INDEX_DESC(free_comment XPK자유게시판_댓글) */ 
+	      					rownum rn,
+	      					comment_idx,
+	 						board_idx,
+	 						comments,
+	 						userid,
+	 						reg_date,
+	 						update_date
+	    			FROM	free_comment
+	    			WHERE	board_idx =  #{board_idx}
+	    			AND		comment_idx > 0
+	    			AND		rownum <= #{cri.pageNum} * #{cri.amount}
+	   				)
+	   		WHERE	rn > (#{cri.pageNum} -1) * #{cri.amount}
+		]]>
+	</select>
+
+	<select id="getCountByBoard_idx" resultType="int">
+		<![CDATA[
+		SELECT count(comment_idx) FROM free_comment WHERE board_idx = #{board_idx}
+		]]>
+	</select>
 </mapper>
