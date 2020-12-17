@@ -76,7 +76,7 @@
                 </div>
                  <div class="col-md-4 col-sm-6 mt-lg-4 team-gd" data-aos="zoom-in">
                     <div class="box16">
-                         <img src="../../../resources/img/team4.jpg" alt=" " class="img-fluid">
+                        <img src="../../../resources/img/team4.jpg" alt=" " class="img-fluid">
                         <div class="box-content">
                             <h3 class="title-wthree">Pavi</h3>
                             <span class="post">Photographer</span>

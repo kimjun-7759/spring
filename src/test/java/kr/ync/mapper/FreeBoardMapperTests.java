@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import kr.ync.domain.Criteria;
 import kr.ync.domain.FreeBoardVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -21,23 +20,23 @@ public class FreeBoardMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private FreeBoardMapper mapper;
 	
-//	@Test
-//	public void testInsert() {
-//
-//		FreeBoardVO fb = new FreeBoardVO(); 
-//		
-//
-//		fb.setTitle("신동완6");
-//		fb.setContent("제발 되게 해주세요ㅠ");
-//		fb.setId("shin");
-//		fb.setImage1("image1");
-//		fb.setImage2("image2");
-//		fb.setImage3("image3");
-//		
-//		mapper.insertSelectKey(fb);
-//
-//		log.info(fb);
-//	}
+	@Test
+	public void testInsert() {
+
+		FreeBoardVO fb = new FreeBoardVO(); 
+		
+
+		fb.setTitle("신동완6");
+		fb.setContent("제발 되게 해주세요ㅠ");
+		fb.setUserid("bae");
+		fb.setImage1("image1");
+		fb.setImage2("image2");
+		fb.setImage3("image3");
+		
+		mapper.insertSelectKey(fb);
+
+		log.info(fb);
+	}
 	
 //	@Test
 //	public void testGetList() {

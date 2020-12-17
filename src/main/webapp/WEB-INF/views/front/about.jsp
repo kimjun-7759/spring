@@ -24,7 +24,7 @@
                         <p class="my-4">Lorem ipsum dolor sit amet Neque porro quisquam est qui dolorem Lorem int ipsum dolor sit amet when an unknown printer took a galley of type.Vivamus id tempor felis.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.Lorem ipsum dolor sit amet Neque porro quisquam est qui dolorem Lorem int ipsum dolor sit amet.</p>
 
                         <ul class="author d-flex">
-                            <li><img class="img-fluid" src="../../../resources/img/author.jpg" alt=""></li>
+                            <li><img class="img-fluid" src="../../../resources/img/author.jpg" alt=""></li>                          
                             <li><span>Expample Name</span>Photographer</li>
                         </ul>
                     </div>

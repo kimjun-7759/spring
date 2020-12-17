@@ -237,8 +237,10 @@
       board_idx > 0
       ]]>
    </select>
-   
-   <update id="updateCommentCnt">
-      UPDATE tbl_board SET replycnt = replycnt + #{amount} WHERE bno = #{bno}
+
+   <update id="updateReplyCnt">
+      UPDATE freeboard SET replycnt = replycnt + #{amount} WHERE board_idx = #{board_idx}
    </update> 
+
+
 </mapper>

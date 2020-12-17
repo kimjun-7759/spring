@@ -52,7 +52,7 @@ public class CommentController {
 	// 해당 값 없어도 현재 브라우저는 UTF-8을 제대로 처리함.
 	// spring 5.2 부터 MediaType.APPLICATION_JSON_UTF8 로 수정하면됨
 	@GetMapping(value = "/{comment_idx}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<CommentVO> get(@PathVariable("comment_idx") Long comment_idx) {
+	public ResponseEntity<CommentVO> get(@PathVariable("comment_idx") int comment_idx) {
 
 		log.info("get: " + comment_idx);
 
@@ -61,10 +61,10 @@ public class CommentController {
 	
 	// PUT, PATCH method를 모두 적용시켜야 되기에 @RequestMapping을 사용
 	// 둘중 하나만 적용할려면 @PutMapping, @PatchMapping 을 사용하면 된다.
-	@PreAuthorize("principal.username == #vo.userid")
+	@PreAuthorize("principal.username == #vo.replyer")
 	@RequestMapping(value = "/{comment_idx}", method = { RequestMethod.PUT, RequestMethod.PATCH },
 					consumes = "application/json", produces = {	MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> modify(@RequestBody CommentVO vo, @PathVariable("comment_idx") Long comment_idx) {
+	public ResponseEntity<String> modify(@RequestBody CommentVO vo, @PathVariable("comment_idx") int comment_idx) {
 		
 		// @RequestBody 처리되는 data는 일반파라미터나 @PathVariable로 처리할 수 없다.
 		vo.setComment_idx(comment_idx);
@@ -78,12 +78,12 @@ public class CommentController {
 
 	}
 
-	@PreAuthorize("principal.username == #vo.userid")
+	@PreAuthorize("principal.username == #vo.replyer")
 	@DeleteMapping(value = "/{comment_idx}", produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> remove(@RequestBody CommentVO vo, @PathVariable("comment_idx") Long comment_idx) {
+	public ResponseEntity<String> remove(@RequestBody CommentVO vo, @PathVariable("comment_idx") int comment_idx) {
 
 		log.info("remove: " + comment_idx);
-		log.info("userid: " + vo.getUserid());
+		log.info("replyer: " + vo.getReplyer());
 
 		return service.remove(comment_idx) == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)
@@ -97,7 +97,7 @@ public class CommentController {
 	// 페이징 처리된 댓글 목록을 가져오는 method
 	@GetMapping(value = "/pages/{board_idx}/{page}", produces = { MediaType.APPLICATION_XML_VALUE,
 															MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<CommentPageDTO> getList(@PathVariable("page") int page, @PathVariable("board_idx") Long board_idx) {
+	public ResponseEntity<CommentPageDTO> getList(@PathVariable("page") int page, @PathVariable("board_idx") int board_idx) {
 
 		Criteria cri = new Criteria(page, 10);
 		

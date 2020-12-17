@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import kr.ync.domain.BoardVO;
 import kr.ync.domain.Criteria;
 import kr.ync.domain.FreeBoardVO;
 
@@ -17,9 +16,9 @@ public interface FreeBoardMapper {
 	
 	public Integer insertSelectKey(FreeBoardVO board);
 	
-	public FreeBoardVO read(Long board_idx);
+	public FreeBoardVO read(int board_idx);
 	
-	public int delete(Long bno);
+	public int delete(int bno);
 	
 	public int update(FreeBoardVO board);
 
@@ -28,6 +27,6 @@ public interface FreeBoardMapper {
 	public int getTotalCount(Criteria cri);
 
 	// 2개 이상의 파라미터를 넘기기위해 @Param 사용. 댓글 추가/삭제 시 amount에 1/-1 값
-	public void updateReplyCnt(@Param("board_idx") Long board_idx, @Param("amount") int amount);
+	public void updateReplyCnt(@Param("board_idx") int board_idx, @Param("amount") int amount);
 
 }

@@ -2,7 +2,6 @@ package kr.ync.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
 
 import kr.ync.domain.Criteria;
 import kr.ync.domain.MessageVO;

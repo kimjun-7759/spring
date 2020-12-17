@@ -2,7 +2,6 @@ package kr.ync.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 
 import kr.ync.domain.BoardVO;
 import kr.ync.domain.Criteria;

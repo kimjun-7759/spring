@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.ync.domain.BoardVO;
 import kr.ync.domain.Criteria;
 import kr.ync.domain.FreeBoardVO;
 import kr.ync.mapper.FreeBoardMapper;
@@ -27,7 +26,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public FreeBoardVO f_get(Long board_idx) {
+	public FreeBoardVO f_get(int board_idx) {
 
 		log.info("get......" + board_idx);
 
@@ -46,7 +45,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public boolean remove(Long bno) {
+	public boolean remove(int bno) {
 
 		log.info("remove...." + bno);
 

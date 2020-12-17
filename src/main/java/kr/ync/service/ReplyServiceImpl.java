@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.ync.domain.Criteria;
 import kr.ync.domain.ReplyPageDTO;
 import kr.ync.domain.ReplyVO;
-import kr.ync.mapper.BoardMapper;
 import kr.ync.mapper.ReplyMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -20,8 +19,6 @@ public class ReplyServiceImpl implements ReplyService {
 	@Autowired
 	private ReplyMapper mapper;
 	
-	@Autowired
-	private BoardMapper boardMapper;
 	
 	@Transactional
 //	@Override

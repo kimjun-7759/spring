@@ -1,6 +1,5 @@
 package kr.ync.mapper;
 
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +8,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.ync.domain.CommentVO;
-import kr.ync.domain.Criteria;
-import kr.ync.domain.ReplyVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -24,20 +21,20 @@ public class CommentMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private CommentMapper mapper;
 	
-//	@Test
-//	public void testInsert() {
-//
-//		CommentVO co = new CommentVO(); 
-//		
-//		co.setBoard_idx(809L);
-//		co.setUserid("bae");
-//		co.setComments("댓글입니다111.");
-//
-//		
-//		mapper.insert(co);
-//
-//		log.info(co);
-//	}
+	@Test
+	public void testInsert() {
+
+		CommentVO co = new CommentVO(); 
+		
+		co.setBoard_idx(831);
+		co.setReplyer("bae");
+		co.setReply("오늘 test");
+
+		
+		mapper.insert(co);
+
+		log.info(co);
+	}
 
 //	@Test
 //	public void testRead() {
@@ -71,16 +68,16 @@ public class CommentMapperTests {
 //		log.info("UPDATE COUNT: " + count);
 //	}
 	
-	@Test
-	public void testList() {
-
-		Criteria cri = new Criteria();
-
-		List<CommentVO> replies = mapper.getList(cri, board_idxArr[0]);
-
-		replies.forEach(reply -> log.info(reply));
-
-	}
+//	@Test
+//	public void testList() {
+//
+//		Criteria cri = new Criteria();
+//
+//		List<CommentVO> replies = mapper.getList(cri, board_idxArr[0]);
+//
+//		replies.forEach(reply -> log.info(reply));
+//
+//	}
 	
 //	@Test
 //	public void testGetListWithPaging() {

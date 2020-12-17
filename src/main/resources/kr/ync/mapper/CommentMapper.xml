@@ -3,8 +3,8 @@
 <mapper namespace="kr.ync.mapper.CommentMapper">
    
    <insert id="insert">
-		INSERT INTO free_comment (comment_idx, userid, board_idx, comments)
-		VALUES (comment_idx.nextval, #{userid}, #{board_idx}, #{comments})
+		INSERT INTO free_comment (comment_idx, replyer, board_idx, reply)
+		VALUES (comment_idx.nextval, #{replyer}, #{board_idx}, #{reply})
 	</insert>
 
 	<select id="read" resultType="kr.ync.domain.CommentVO">
@@ -16,7 +16,7 @@
 	</delete>
 
 	<update id="update">
-		UPDATE free_comment SET	comments = #{comments},
+		UPDATE free_comment SET	reply = #{reply},
 								update_date = sysdate 
 		WHERE comment_idx = #{comment_idx}
 		
@@ -33,7 +33,7 @@
 
 	<select id="getList" resultType="kr.ync.domain.CommentVO">
 
-		select comment_idx, userid, reg_date, update_date, board_idx, comments
+		select comment_idx, replyer, reg_date, update_date, board_idx, reply
 		from free_comment
 		where board_idx = #{board_idx}
 		order by comment_idx DESC
@@ -44,16 +44,16 @@
 		<![CDATA[
 	 		SELECT	comment_idx,
 	 				board_idx,
-	 				comments,
-	 				userid,
+	 				reply,
+	 				replyer,
 	 				reg_date,
 	 				update_date
 	 		FROM	(SELECT /*+INDEX_DESC(free_comment XPK자유게시판_댓글) */ 
 	      					rownum rn,
 	      					comment_idx,
 	 						board_idx,
-	 						comments,
-	 						userid,
+	 						reply,
+	 						replyer,
 	 						reg_date,
 	 						update_date
 	    			FROM	free_comment

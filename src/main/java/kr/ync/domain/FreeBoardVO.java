@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class FreeBoardVO {
-	private Long board_idx;
+	private int board_idx;
 	private String title;
 	private String content;
 	private String userid;

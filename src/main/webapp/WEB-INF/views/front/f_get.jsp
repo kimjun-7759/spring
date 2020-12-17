@@ -150,16 +150,16 @@ function getThumbFileName(fullFilePath) {
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label>Comment</label> <input class="form-control" name='comments'
+						<label>Comment</label> <input class="form-control" name='reply'
 							value='New Comment!!!!'>
 					</div>
 					<div class="form-group">
-						<label>Userid</label> <input class="form-control" name='userid'
-							value='userid'>
+						<label>Userid</label> <input class="form-control" name='replyer'
+							value='replyer'>
 					</div>
 					<div class="form-group">
 						<label>Comment Date</label> <input class="form-control"
-							name='commentDate' value='2018-01-01 13:13'>
+							name='reg_date' value='2018-01-01 13:13'>
 					</div>
 				</div>
 
@@ -217,10 +217,10 @@ $(document).ready(function () {
 			for (var i = 0, len = list.length || 0; i < len; i++) {
 				str +="<li class='left clearfix' data-comment_idx='"+list[i].comment_idx+"'>";
 				str +="  <div><div class='header'><strong class='primary-font'>["
-					+ list[i].comment_idx+"] "+list[i].userid+"</strong>"; 
+					+ list[i].comment_idx+"] "+list[i].replyer+"</strong>"; 
 				str +="    <small class='pull-right text-muted'>"
 					+ replyService.displayTime(list[i].reg_date)+"</small></div>";
-				str +="    <p>"+list[i].comments+"</p></div></li>";
+				str +="    <p>"+list[i].reply+"</p></div></li>";
 			}
 	     
 			replyUL.html(str);
@@ -236,7 +236,7 @@ $(document).ready(function () {
 	var pageNum = 1;
     var replyPageFooter = $(".panel-footer");
     
-    function showReplyPage(replyCnt){
+    function showReplyPage(commentCnt){
       
       var endNum = Math.ceil(pageNum / 10.0) * 10;  
       var startNum = endNum - 9; 
@@ -244,11 +244,11 @@ $(document).ready(function () {
       var prev = startNum != 1;
       var next = false;
       
-      if(endNum * 10 >= replyCnt){
-        endNum = Math.ceil(replyCnt/10.0);
+      if(endNum * 10 >= commentCnt){
+        endNum = Math.ceil(commentCnt/10.0);
       }
       
-      if(endNum * 10 < replyCnt){
+      if(endNum * 10 < commentCnt){
         next = true;
       }
       
@@ -295,7 +295,7 @@ $(document).ready(function () {
 	var modal = $(".modal");
     var modalInputReply = modal.find("input[name='reply']");
     var modalInputReplyer = modal.find("input[name='replyer']");
-    var modalInputReplyDate = modal.find("input[name='replyDate']");
+    var modalInputReplyDate = modal.find("input[name='reg_date']");
     var modalModBtn = $("#modalModBtn");
     var modalRemoveBtn = $("#modalRemoveBtn");
     var modalRegisterBtn = $("#modalRegisterBtn");
@@ -335,9 +335,9 @@ $(document).ready(function () {
 		var reply = {
 			reply: modalInputReply.val(),
             replyer:modalInputReplyer.val(),
-            bno:bnoValue
+            board_idx:bnoValue
 		};
-      
+      	console.log(bnoValue);
 		replyService.add(reply, function(result){
         
         alert(result);
@@ -353,15 +353,15 @@ $(document).ready(function () {
 	//댓글 조회 클릭 이벤트 처리 
     $(".chat").on("click", "li", function(e){
       
-		var rno = $(this).data("rno");
-		console.log(rno);
+		var comment_idx = $(this).data("comment_idx");
+		console.log(comment_idx);
 		
-		replyService.get(rno, function(reply){
+		replyService.get(comment_idx, function(reply){
 	
 			modalInputReply.val(reply.reply);
 			modalInputReplyer.val(reply.replyer);
-			modalInputReplyDate.val(replyService.displayTime( reply.replyDate)).attr("readonly","readonly");
-			modal.data("rno", reply.rno);
+			modalInputReplyDate.val(replyService.displayTime( reply.reg_date)).attr("readonly","readonly");
+			modal.data("comment_idx", reply.comment_idx);
 			
 			modal.find("button[id !='modalCloseBtn']").hide();
 			modalModBtn.show();
@@ -377,7 +377,7 @@ $(document).ready(function () {
 		var originalReplyer = modalInputReplyer.val();
 		
 		var reply = {
-				rno:modal.data("rno"), 
+				comment_idx:modal.data("comment_idx"), 
 				reply: modalInputReply.val(),
 				replyer: originalReplyer
 				};
@@ -406,9 +406,9 @@ $(document).ready(function () {
 	// 댓글 삭제 부분. security 적용 후
 	modalRemoveBtn.on("click", function (e){
 	  	  
-		var rno = modal.data("rno");
+		var comment_idx = modal.data("comment_idx");
 
-		console.log("RNO: " + rno);
+		console.log("comment_idx: " + comment_idx);
 		console.log("REPLYER: " + replyer);
 	   	  
 		if(!replyer){
@@ -428,7 +428,7 @@ $(document).ready(function () {
 			return;
 		}
 	   	  
-		replyService.remove(rno, originalReplyer, function(result){
+		replyService.remove(comment_idx, originalReplyer, function(result){
 	   	        
 			alert(result);
 			modal.modal("hide");

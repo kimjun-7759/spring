@@ -29,23 +29,7 @@ public class FreeBoardController {
 	   
 	   @Autowired
 	   private FreeBoardService service;
-	   
-//	   @GetMapping("/insert")
-//	   @PreAuthorize("isAuthenticated()")
-//	   public void insert() {
-//
-//	   }
-//	   @PostMapping("/register")
-//	   public String register(FreeBoardVO board, RedirectAttributes rttr) {
-//		   log.info("register : " + board);
-//		   
-//		   service.register(board);
-//		   
-//		   rttr.addFlashAttribute("result", board.getBoard_idx());
-//		   
-//		   return "redirect:/Freeboard";
-//	   }
-//	   
+	      
 	   
 	   @PreAuthorize("hasRole('ROLE_USER')")
 	   @GetMapping("/index")
@@ -103,7 +87,7 @@ public class FreeBoardController {
 	   }
 
 	   @GetMapping({"/f_get", "/f_modify"})
-	   public void f_get(@RequestParam("board_idx") Long board_idx, Model model, @ModelAttribute("cri") Criteria cri) {
+	   public void f_get(@RequestParam("board_idx") int board_idx, Model model, @ModelAttribute("cri") Criteria cri) {
 		   
 		   log.info("/f_get or f_modify");
 		   model.addAttribute("freeboard", service.f_get(board_idx));
@@ -141,7 +125,7 @@ public class FreeBoardController {
 	   }
 	   
 	   @PostMapping("/f_remove")
-	   public String remove(@RequestParam("board_idx") Long board_idx, Criteria cri, RedirectAttributes rttr, String userid) {
+	   public String remove(@RequestParam("board_idx") int board_idx, Criteria cri, RedirectAttributes rttr, String userid) {
 
 	      log.info("remove..." + board_idx);
 	      if (service.remove(board_idx)) {

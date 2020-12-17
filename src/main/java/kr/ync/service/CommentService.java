@@ -7,16 +7,18 @@ import kr.ync.domain.CommentVO;
 import kr.ync.domain.Criteria;
 
 public interface CommentService {
-	// 글 등록
+	// 글 등록	
 	public int register(CommentVO vo);
 
-	public CommentVO get(Long comment_idx);
+	   public CommentVO get(int comment_idx);
 
-	public List<CommentVO> getList(Criteria cri, Long board_idx);
+	   public int modify(CommentVO vo);
 
-	public CommentPageDTO getListWithPaging(Criteria cri, Long board_idx);
+	   public int remove(int comment_idx);
 
-	public int modify(CommentVO vo);
+	   public List<CommentVO> getList(Criteria cri, int board_idx);
+	   
+	   public CommentPageDTO getListWithPaging(Criteria cri, int board_idx);
 
-	public int remove(Long comment_idx);
+
 }
